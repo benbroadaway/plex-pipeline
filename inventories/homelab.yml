@@ -1,0 +1,5 @@
+homelab:
+  children:
+    plex_server:
+      hosts:
+        ben-nuc7:

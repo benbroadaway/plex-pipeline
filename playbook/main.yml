@@ -1,0 +1,11 @@
+---
+
+# install docker
+- hosts: all
+  roles:
+  - role: docker
+
+# install plex
+- hosts: all
+  roles:
+  - role: plex

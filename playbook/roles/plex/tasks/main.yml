@@ -1,0 +1,41 @@
+---
+
+- name: Download docker image
+  become: yes
+  docker_image:
+    name: "plexinc/pms-docker:{{ install_version }}"
+    force: true
+
+- name: Remove existing container
+  become: yes
+  docker_container:
+    state: absent
+    name: plex-test
+
+- name: Create the Plex container
+  become: yes
+  docker_container:
+    env:
+      TZ: "{{ time_zone }}"
+      ADVERTISE_IP: "{{ advertise_ip }}"
+    image: "plexinc/pms-docker:{{ install_version }}"
+    name: plex-test
+    pull: true
+    state: started
+    network_mode: bridge
+    networks:
+    - name: plex
+    purge_networks: yes # remove default 'bridge' network
+    ports:
+    - '32400:32400/tcp'
+    - '3005:3005/tcp'
+    - '8324:8324/tcp'
+    - '32469:32469/tcp'
+    - '1900:1900/udp'
+    - '32410:32410/udp'
+    - '32412:32412/udp'
+    - '32413:32413/udp'
+    - '32414:32414/udp'
+    restart_policy: unless-stopped
+    volumes: "{{ media_volumes }}"
+  register: docker_container_concord_agent

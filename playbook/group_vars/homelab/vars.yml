@@ -1,0 +1,10 @@
+---
+install_version: latest
+time_zone: "America/Central"
+
+
+# Vault keys
+# # ansible vars
+# ansible_user:
+# ansible_become_user:
+# ansible_become_password:
