@@ -1,11 +1,16 @@
 ---
 
 # install docker
-- hosts: all
+- hosts: plex_server
   roles:
   - role: docker
 
+# backup config
+- hosts: plex_server
+  roles:
+  - role: plex_backup
+
 # install plex
-- hosts: all
+- hosts: plex_server
   roles:
   - role: plex

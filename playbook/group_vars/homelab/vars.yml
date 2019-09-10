@@ -2,6 +2,9 @@
 install_version: latest
 time_zone: "America/Central"
 
+# Ansible Vars
+plex_uid: "{{ ansible_user_uid }}"
+plex_gid: "{{ ansible_user_gid }}"
 
 # Vault keys
 # # ansible vars

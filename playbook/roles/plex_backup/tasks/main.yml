@@ -1,0 +1,7 @@
+---
+
+- name: Create backup
+  become: yes
+  archive:
+    path: "{{ config_path }}"
+    dest: "{{ config_path }}.tar.gz"

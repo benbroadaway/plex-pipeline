@@ -10,7 +10,7 @@
   become: yes
   docker_container:
     state: absent
-    name: plex-test
+    name: plex
 
 - name: Create the Plex container
   become: yes
@@ -18,8 +18,11 @@
     env:
       TZ: "{{ time_zone }}"
       ADVERTISE_IP: "{{ advertise_ip }}"
+      PLEX_UID: "{{ plex_uid }}"
+      PLEX_GID: "{{ plex_gid }}"
+      PLEX_CLAIM: "{{ plex_claim_token | default('none') }}"
     image: "plexinc/pms-docker:{{ install_version }}"
-    name: plex-test
+    name: plex
     pull: true
     state: started
     network_mode: bridge
