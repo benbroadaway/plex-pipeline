@@ -36,5 +36,5 @@ flows:
 triggers:
 - cron:  # backup at 4am
     spec: "0 4 * * *"
-    timezone: "America/Central"
+    timezone: "America/Chicago"
     entryPoint: backupOnly
