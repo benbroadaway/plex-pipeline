@@ -1,0 +1,40 @@
+configuration:
+  dependencies:
+  - mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:1.32.0
+
+  arguments:
+    backupKeySet: ${crypto.exportKeyAsFile('Default', 'plex-secret', null)}
+
+flows:
+  default:
+  - call: runAnsible
+    in:
+      playbook: playbook/main.yml
+
+  backupOnly:
+  - call: runAnsible
+    in:
+      playbook: playbook/backup_only.yml
+
+  runAnsible:
+  - task: ansible
+    in:
+      debug: false
+      playbook: ${playbook}
+      auth:
+        privatekey:
+          # user: ben
+          secret:
+            org: Default
+            name: plex-secret
+      inventoryFile: inventories/homelab.yml
+      vaultPassword: ${crypto.exportAsString('Default', 'plex-vault-pass', null)}
+      extraVars:
+        backup_private_key: "${workDir}/${backupKeySet.private}"
+        run_backup: true
+
+triggers:
+- cron:  # backup at 4am
+    spec: "0 4 * * *"
+    timezone: "America/Central"
+    entryPoint: backupOnly

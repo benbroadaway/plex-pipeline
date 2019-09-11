@@ -9,6 +9,7 @@
 - hosts: plex_server
   roles:
   - role: plex_backup
+    when: run_backup is defined and run_backup
 
 # install plex
 - hosts: plex_server

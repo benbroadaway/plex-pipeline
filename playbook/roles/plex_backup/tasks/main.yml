@@ -1,7 +1,31 @@
 ---
 
-- name: Create backup
-  become: yes
-  archive:
-    path: "{{ config_path }}"
-    dest: "{{ config_path }}.tar.gz"
+# - name: Create local backup
+#   archive:
+#     path: "{{ config_path }}"
+#     dest: "{{ config_path }}.tar.gz"
+
+- name: get private key
+  copy:
+    src: "{{ backup_private_key }}"
+    dest: "/tmp/plex.key"
+    mode: 0600
+
+- name: Create remote backup
+  shell: |
+    rsync -F --compress \
+    --archive \
+    -e 'ssh -i /tmp/plex.key -p {{ backup_ssh_port }}' \
+    {{ config_path }} {{ backup_user }}@{{ backup_server }}:{{ backup_path }}
+  register: rsync_result
+  ignore_errors: yes
+
+- name: CLEAN UP - Delete rsync key
+  file:
+    state: absent
+    path: "/tmp/plex.key"
+
+- name: Fail the play if the rsync command did not succeed
+  fail:
+    msg: "the command failed: {{ rsync_result.stderr }}"
+  when: rsync_result.rc != 0

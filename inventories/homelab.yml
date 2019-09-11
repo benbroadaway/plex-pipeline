@@ -3,3 +3,4 @@ homelab:
     plex_server:
       hosts:
         ben-nuc7:
+          ansible_ssh_user: ben

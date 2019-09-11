@@ -7,6 +7,12 @@ plex_uid: "{{ ansible_user_uid }}"
 plex_gid: "{{ ansible_user_gid }}"
 
 # Vault keys
+# # backup vars
+# backup_user:
+# backup_server:
+# backup_ssh_port:
+# backup_path:
+#
 # # ansible vars
 # ansible_user:
 # ansible_become_user:

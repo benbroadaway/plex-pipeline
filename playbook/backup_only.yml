@@ -1,0 +1,6 @@
+---
+
+# backup config
+- hosts: plex_server
+  roles:
+  - role: plex_backup
