@@ -12,6 +12,10 @@
     state: absent
     name: plex
 
+- name: Create plex network
+  docker_network:
+    name: plex
+
 - name: Create the Plex container
   become: yes
   docker_container:
