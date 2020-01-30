@@ -1,6 +1,6 @@
 configuration:
   dependencies:
-  - mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:1.37.1
+  - mvn://com.walmartlabs.concord.plugins.basic:ansible-tasks:1.38.2
 
   arguments:
     backupKeySet: ${crypto.exportKeyAsFile('Default', 'plex-secret', null)}
