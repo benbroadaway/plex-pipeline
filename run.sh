@@ -8,10 +8,10 @@ tmpDir=./target
 
 
 # remove temporary directory and re-create it
-rm -rf ${tmpDir} && mkdir ${tmpDir}
+rm -rf "${tmpDir}" && mkdir "${tmpDir}"
 
 # copy project files to temporary directory
-cp -r concord.yml inventories playbook ${tmpDir}
+cp -r concord.yml inventories playbook "${tmpDir}"
 
 cd ${tmpDir} && zip -r payload.zip ./* 2>&1>/dev/null && cd .. 
 
